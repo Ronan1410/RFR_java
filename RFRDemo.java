@@ -13,6 +13,8 @@ public class RFRDemo {
 
         int N = Integer.parseInt(args[0]);
 
+        long startTime = System.nanoTime();
+
         BufferedImage input = ImageIO.read(new File("input.jpg"));
 
         double[][] coeffs = Projector.project(input, N);
@@ -23,8 +25,12 @@ public class RFRDemo {
                 coeffs
         );
 
-        ImageIO.write(output, "PNG", new File("reconstructed.png"));
+        ImageIO.write(output, "PNG", new File("reconstructed_with_" + N + "numBasis.png"));
+
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime) / 1_000_000;
 
         System.out.println("Rendered using " + N + " basis functions.");
+        System.out.println("Total time: " + duration + " ms");
     }
 }
